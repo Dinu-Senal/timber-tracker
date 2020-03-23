@@ -4,6 +4,28 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
 import pickle
 
+#Pickle - serialize machine learning algorithm and save serialize format
+
+#pickle.dump - converting python object into a character stream
+
+#rb - open for read mode and binary mode
+
+#wb -open for write mode and binary mode
+
+#dense layer - used to change dimention of the vector
+
+#dropout - ignores neurons
+
+#activation function - mathematical gate in input 
+
+#Flatten - converts feature map to single column to connected layer and dense adds the fully connected layer to neural network
+
+#Numpy - array proccessing pacakge
+
+#Conv2d - 2D convolutional layer create a kernal help to produce tensor outputs
+
+#maxpooling2d - maps region of image to a feature map
+
 X = pickle.load(open("X.pickle","rb"))
 y = pickle.load(open("y.pickle","rb"))
 
@@ -31,4 +53,4 @@ model.compile(loss="binary_crossentropy",
 y = np.array(y)
 print(X.shape, X.dtype)
 print(y.shape, y.dtype)
-model.fit(X, y, batch_size=32, epochs=3, validation_split=0.1)
+model.fit(X, y, batch_size=32, epochs=100, validation_split=0.1)
