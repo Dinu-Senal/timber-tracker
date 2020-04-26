@@ -50,3 +50,20 @@ function loadLabeledImages() {
     })
   )
 }
+
+function loadLabeledImages() {
+  const labels = ['Africana', 'Kohomba']
+  return Promise.all(
+    labels.map(async label => {
+      const descriptions = []
+      for (let i = 1; i <= 2; i++) {
+        const detections = await imageapi.detectSingleImage(img).withImageLandmarks().withImageDescriptor()
+        descriptions.push(detections.descriptor)
+      }
+
+      return new imageapi.LabeledImageDescriptors(label, descriptions)
+    })
+    
+  )
+  
+}
