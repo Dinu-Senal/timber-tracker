@@ -16,7 +16,8 @@ app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
 // Mongo URI
-mongoose.connect("mongodb+srv://timber:timber@cluster0-dn8gl.mongodb.net/test?retryWrites=true&w=majority" , { useNewUrlParser: true }).then(
+mongoose.connect("mongodb+srv://timber:timber@cluster0-dn8gl.mongodb.net/test?retryWrites=true&w=majority" ,
+                 { useNewUrlParser: true }).then(
   (res) => {
    console.log("Connected to Database Successfully.")
   }
@@ -25,11 +26,14 @@ mongoose.connect("mongodb+srv://timber:timber@cluster0-dn8gl.mongodb.net/test?re
 });
 const mongoURI = "mongodb+srv://timber:timber@cluster0-dn8gl.mongodb.net/test?retryWrites=true&w=majority";
 const connect = mongoose.createConnection(mongoURI);
+
 // Init gfs
 let gfs;
 
 connect.once('open', () => {
+  
   // Init stream
+  
   gfs = Grid(connect.db, mongoose.mongo);
   gfs.collection('uploads');
 });
@@ -53,10 +57,12 @@ const storage = new GridFsStorage({
     });
   }
 });
+
 const upload = multer({ storage });
 
 // @route GET /
 // @desc Loads form
+
 app.get('/', (req, res) => {
   gfs.files.find().toArray((err, files) => {
     // Check if files
@@ -80,6 +86,7 @@ app.get('/', (req, res) => {
 
 // @route POST /upload
 // @desc  Uploads file to DB
+
 app.post('/upload', upload.single('file'), (req, res) => {
   // res.json({ file: req.file });
   res.redirect('/');
@@ -101,6 +108,7 @@ app.get('/files', (req, res) => {
 });
 
 // @route GET /files/:filename
+
 app.get('/files/:filename', (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     // Check if file
@@ -109,7 +117,9 @@ app.get('/files/:filename', (req, res) => {
         err: 'No file exists'
       });
     }
+    
     // File exists
+    
     return res.json(file);
   });
 });
@@ -126,6 +136,7 @@ app.get('/image/:filename', (req, res) => {
 
     // Check if image
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+      
       // Read output to browser
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
