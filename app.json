@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Timber Tracker",
-    "slug": "Timber-Tracker",
+    "name": "HelloWorld",
+    "slug": "FeedBackUI",
     "platforms": [
       "ios",
       "android",
@@ -13,7 +13,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#262626"
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +23,6 @@
     ],
     "ios": {
       "supportsTablet": true
-    },
-    "sdkVersion": "35.0.0"
+    }
   }
 }
